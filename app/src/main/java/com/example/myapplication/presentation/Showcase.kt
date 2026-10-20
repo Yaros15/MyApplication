@@ -3,6 +3,7 @@ package com.example.myapplication.presentation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.pager.HorizontalPager
@@ -16,10 +17,11 @@ import com.example.myapplication.data.AppCard
 @Composable
 fun Showcase (
     appsListForStore: List<AppCard>,
+    onClickTheCard: (app: AppCard) -> Unit,
     modifier: Modifier = Modifier
 ){
     val itemsPerPage = 3
-    val pageCount = (appsListForStore.size + itemsPerPage - 1) / itemsPerPage // Округление вверх
+    val pageCount = (appsListForStore.size + itemsPerPage - 1) / itemsPerPage
     val pagerState = rememberPagerState(pageCount = { pageCount })
 
     Column(modifier = modifier.fillMaxWidth()) {
@@ -34,22 +36,25 @@ fun Showcase (
             modifier = Modifier.fillMaxWidth(),
             contentPadding = PaddingValues(horizontal = 16.dp),
             pageSpacing = 16.dp
-        ) { page ->
+        ) {
+                page ->
 
             val startIndex = page * itemsPerPage
+
             val pageApps = appsListForStore.subList(
                 startIndex,
                 minOf(startIndex + itemsPerPage, appsListForStore.size)
             )
 
-            Column(
+            Row(
                 modifier = Modifier.fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 pageApps.forEach { appsListForStoreItem ->
                     AppItemCard(
                         appCard = appsListForStoreItem,
-                        modifier = Modifier.fillMaxWidth()
+                        onClickTheCard = {onClickTheCard(appsListForStoreItem)},
+                        modifier = Modifier.weight(1f)
                     )
                 }
             }
