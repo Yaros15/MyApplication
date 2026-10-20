@@ -4,8 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
+import kotlinx.serialization.Serializable
 
-const val HOME_DESTINATION = "home"
+//const val HOME_DESTINATION = "home"
+
+@Serializable
+data object HomeDestination
+@Serializable
+data class AppItemCardDestination(val appId: String)
 
 @Composable
 fun RootNavHost (){
@@ -13,10 +20,15 @@ fun RootNavHost (){
 
     NavHost(
         navController = navController,
-        startDestination = HOME_DESTINATION
+        startDestination = HomeDestination
     ){
 
-        composable(HOME_DESTINATION) { AppDetailsScreen() }
+        composable<HomeDestination> { AppDetailsScreen() }
+
+        composable<AppItemCardDestination> {backStackEntry ->
+            val routeInfo = backStackEntry.toRoute<AppItemCardDestination>()
+            AppItemCardScreen(routeInfo.appId)
+        }
 
     }
 
