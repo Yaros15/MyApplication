@@ -7,4 +7,6 @@ interface AppCardRepo {
 
     fun getAllCardsApp(): List<AppCard>
 
+    fun findById(id: String): AppCard
+
 }
