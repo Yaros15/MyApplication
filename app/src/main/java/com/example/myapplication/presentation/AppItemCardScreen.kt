@@ -8,33 +8,34 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.myapplication.data.AppCard
 
 @Composable
 fun AppItemCardScreen(
     appCard: AppCard,
-    appsListForStore: List<AppCard>,
     onBackClick: () -> Unit,
     onClickTheCard: (AppCard) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: MainViewModel = viewModel()
 ) {
+
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
         Column(
-            Modifier
-                .fillMaxSize()
+            modifier
                 .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
         ) {
 
             Toolbar(onBackClick = onBackClick)
@@ -55,11 +56,9 @@ fun AppItemCardScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             Showcase(
-                appsListForStore = appsListForStore,
+                appsListForStore = uiState.appsListForStore,
                 onClickTheCard = onClickTheCard
             )
-
-            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }

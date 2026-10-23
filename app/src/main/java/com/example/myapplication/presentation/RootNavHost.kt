@@ -14,8 +14,7 @@ import com.example.myapplication.domain.AppCardRepo
 fun RootNavHost (){
 
     val navController = rememberNavController()
-    val appCardRepo: AppCardRepo = remember { AppCardRepoImpl() }
-    val appsListForStore = appCardRepo.getAllCardsApp()
+    val appCardRepo: AppCardRepo = AppCardRepoImpl()
 
     NavHost(
         navController = navController,
@@ -24,7 +23,6 @@ fun RootNavHost (){
 
         composable<HomeDestination> {
             AppDetailsScreen(
-                appsListForStore = appsListForStore,
                 onClickTheCard = {app: AppCard ->
                     navController.navigate(AppItemCardDestination(appId = app.id))}
             )
@@ -36,7 +34,6 @@ fun RootNavHost (){
 
             AppItemCardScreen(
                 appCard = curApp,
-                appsListForStore = appsListForStore,
                 onBackClick = {navController.popBackStack()},
                 onClickTheCard = {app: AppCard ->
                     navController.navigate(AppItemCardDestination(appId = app.id))}
