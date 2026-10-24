@@ -1,4 +1,4 @@
-package com.example.myapplication.presentation
+package com.example.myapplication.presentation.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,12 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.data.AppCard
+import com.example.myapplication.domain.domainModel.AppCardDomain
 
 @Composable
 fun Showcase (
-    appsListForStore: List<AppCard>,
-    onClickTheCard: (app: AppCard) -> Unit,
+    appsListForStore: List<AppCardDomain>,
+    onClickTheCard: (app: AppCardDomain) -> Unit,
     modifier: Modifier = Modifier
 ){
     val itemsPerPage = 3
@@ -52,8 +52,8 @@ fun Showcase (
             ) {
                 pageApps.forEach { appsListForStoreItem ->
                     AppItemCard(
-                        appCard = appsListForStoreItem,
-                        onClickTheCard = {onClickTheCard(appsListForStoreItem)},
+                        appCardDomain = appsListForStoreItem,
+                        onClickTheCard = { onClickTheCard(appsListForStoreItem) },
                         modifier = Modifier.weight(1f)
                     )
                 }

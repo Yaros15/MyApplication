@@ -1,4 +1,4 @@
-package com.example.myapplication.presentation
+package com.example.myapplication.presentation.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,11 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.myapplication.data.AppCard
+import com.example.myapplication.domain.domainModel.AppCardDomain
+import com.example.myapplication.presentation.viewModel.MainUIState
+import com.example.myapplication.presentation.viewModel.MainViewModel
 
 @Composable
 fun AppDetailsScreen (
-    onClickTheCard: (app: AppCard) -> Unit,
+    onClickTheCard: (app: AppCardDomain) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = viewModel()
 ){
@@ -42,8 +44,8 @@ fun AppDetailsScreen (
             uiState.appsListForStore.forEach { appsListForStoreItem ->
                 item {
                     AppItemCard(
-                        appCard = appsListForStoreItem,
-                        onClickTheCard = {onClickTheCard(appsListForStoreItem)})
+                        appCardDomain = appsListForStoreItem,
+                        onClickTheCard = { onClickTheCard(appsListForStoreItem) })
                 }
             }
 

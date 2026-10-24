@@ -1,8 +1,8 @@
-package com.example.myapplication.presentation
+package com.example.myapplication.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.data.AppCardRepoImpl
-import com.example.myapplication.domain.AppCardRepo
+import com.example.myapplication.data.repositoriImpl.AppCardRepoImpl
+import com.example.myapplication.domain.repository.AppCardRepo
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

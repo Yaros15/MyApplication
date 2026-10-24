@@ -1,6 +1,5 @@
-package com.example.myapplication.presentation
+package com.example.myapplication.presentation.ui
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
@@ -19,13 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
-import com.example.myapplication.data.AppCard
+import com.example.myapplication.domain.domainModel.AppCardDomain
+import com.example.myapplication.presentation.viewModel.MainViewModel
 
 @Composable
 fun AppItemCardScreen(
-    appCard: AppCard,
+    appCardDomain: AppCardDomain,
     onBackClick: () -> Unit,
-    onClickTheCard: (AppCard) -> Unit,
+    onClickTheCard: (AppCardDomain) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: MainViewModel = viewModel()
 ) {
@@ -41,7 +41,7 @@ fun AppItemCardScreen(
             Toolbar(onBackClick = onBackClick)
 
             AsyncImage(
-                model = appCard.iconUrl,
+                model = appCardDomain.iconUrl,
                 contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -49,9 +49,9 @@ fun AppItemCardScreen(
                     .clip(RoundedCornerShape(8.dp))
             )
             Spacer(Modifier.height(16.dp))
-            Text(text = appCard.name)
-            Text(text = appCard.description)
-            Text(text = appCard.categoryApp.name)
+            Text(text = appCardDomain.name)
+            Text(text = appCardDomain.description)
+            Text(text = appCardDomain.categoryApp.name)
 
             Spacer(modifier = Modifier.height(24.dp))
 
