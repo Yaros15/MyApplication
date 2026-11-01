@@ -15,19 +15,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
-import com.example.myapplication.domain.domainModel.AppCardDomain
-import com.example.myapplication.presentation.viewModel.MainViewModel
+import com.example.myapplication.domain.domainModel.AppCard
+import com.example.myapplication.presentation.viewModel.AppDetailsState
+import com.example.myapplication.presentation.viewModel.AppDetailsViewModel
 
 @Composable
 fun AppItemCardScreen(
-    appCardDomain: AppCardDomain,
+    appId: String,
     onBackClick: () -> Unit,
-    onClickTheCard: (AppCardDomain) -> Unit,
+    onClickTheCard: (AppCard) -> Unit,
     modifier: Modifier = Modifier,
-    viewModel: MainViewModel = viewModel()
+    viewModel: AppDetailsViewModel = hiltViewModel<AppDetailsViewModel>()
 ) {
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
@@ -40,25 +41,43 @@ fun AppItemCardScreen(
 
             Toolbar(onBackClick = onBackClick)
 
-            AsyncImage(
-                model = appCardDomain.iconUrl,
-                contentDescription = null,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .aspectRatio(16f / 9f) // Соотношение сторон сохранится
-                    .clip(RoundedCornerShape(8.dp))
-            )
-            Spacer(Modifier.height(16.dp))
-            Text(text = appCardDomain.name)
-            Text(text = appCardDomain.description)
-            Text(text = appCardDomain.categoryApp.name)
+            when (val state = uiState) {
 
-            Spacer(modifier = Modifier.height(24.dp))
+                is AppDetailsState.Loading ->{
+                    //
+                }
 
-            Showcase(
-                appsListForStore = uiState.appsListForStore,
-                onClickTheCard = onClickTheCard
-            )
+                is AppDetailsState.Error ->{
+                    //
+                }
+
+                is AppDetailsState.Content -> {
+
+                    val appCardDomain = state.appDetails
+                    val storefront = state.storefrontApps
+
+                    AsyncImage(
+                        model = appCardDomain.iconUrl,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .aspectRatio(16f / 9f) // Соотношение сторон сохранится
+                            .clip(RoundedCornerShape(8.dp))
+                    )
+                    Spacer(Modifier.height(16.dp))
+                    Text(text = appCardDomain.name)
+                    Text(text = appCardDomain.description)
+                    Text(text = appCardDomain.categoryApp.name)
+
+                    Spacer(modifier = Modifier.height(24.dp))
+
+                    Showcase(
+                        appsListForStore = storefront,
+                        onClickTheCard = onClickTheCard
+                    )
+                }
+
+            }
         }
     }
 }

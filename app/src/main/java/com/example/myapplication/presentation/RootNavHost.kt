@@ -5,9 +5,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import com.example.myapplication.domain.domainModel.AppCardDomain
-import com.example.myapplication.data.repositoriImpl.AppCardRepoImpl
-import com.example.myapplication.domain.repository.AppCardRepo
+import com.example.myapplication.domain.domainModel.AppCard
 import com.example.myapplication.presentation.ui.AppDetailsScreen
 import com.example.myapplication.presentation.ui.AppItemCardScreen
 
@@ -15,7 +13,6 @@ import com.example.myapplication.presentation.ui.AppItemCardScreen
 fun RootNavHost (){
 
     val navController = rememberNavController()
-    val appCardRepo: AppCardRepo = AppCardRepoImpl()
 
     NavHost(
         navController = navController,
@@ -24,7 +21,7 @@ fun RootNavHost (){
 
         composable<HomeDestination> {
             AppDetailsScreen(
-                onClickTheCard = { app: AppCardDomain ->
+                onClickTheCard = { app: AppCard ->
                     navController.navigate(AppItemCardDestination(appId = app.id))
                 }
             )
@@ -32,12 +29,11 @@ fun RootNavHost (){
 
         composable<AppItemCardDestination> {backStackEntry ->
             val routeInfo = backStackEntry.toRoute<AppItemCardDestination>()
-            val curApp = appCardRepo.findById(routeInfo.appId)
 
             AppItemCardScreen(
-                appCardDomain = curApp,
+                appId = routeInfo.appId,
                 onBackClick = { navController.popBackStack() },
-                onClickTheCard = { app: AppCardDomain ->
+                onClickTheCard = { app: AppCard ->
                     navController.navigate(AppItemCardDestination(appId = app.id))
                 }
             )

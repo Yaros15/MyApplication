@@ -1,11 +1,11 @@
 package com.example.myapplication.domain.repository
 
-import com.example.myapplication.domain.domainModel.AppCardDomain
+import com.example.myapplication.domain.domainModel.AppCard
 
 interface AppCardRepo {
 
-    fun getAllCardsApp(): List<AppCardDomain>
+    fun getAllCardsApp(): List<AppCard>
 
-    fun findById(id: String): AppCardDomain
+    fun findById(id: String): AppCard
 
 }

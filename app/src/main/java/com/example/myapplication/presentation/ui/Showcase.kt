@@ -12,12 +12,12 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.myapplication.domain.domainModel.AppCardDomain
+import com.example.myapplication.domain.domainModel.AppCard
 
 @Composable
 fun Showcase (
-    appsListForStore: List<AppCardDomain>,
-    onClickTheCard: (app: AppCardDomain) -> Unit,
+    appsListForStore: List<AppCard>,
+    onClickTheCard: (app: AppCard) -> Unit,
     modifier: Modifier = Modifier
 ){
     val itemsPerPage = 3
@@ -52,7 +52,7 @@ fun Showcase (
             ) {
                 pageApps.forEach { appsListForStoreItem ->
                     AppItemCard(
-                        appCardDomain = appsListForStoreItem,
+                        appCard = appsListForStoreItem,
                         onClickTheCard = { onClickTheCard(appsListForStoreItem) },
                         modifier = Modifier.weight(1f)
                     )

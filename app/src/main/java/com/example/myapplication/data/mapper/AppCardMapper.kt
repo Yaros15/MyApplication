@@ -1,11 +1,12 @@
 package com.example.myapplication.data.mapper
 
-import com.example.myapplication.domain.domainModel.AppCardDomain
+import com.example.myapplication.domain.domainModel.AppCard
 import com.example.myapplication.data.dto.AppCardDto
+import javax.inject.Inject
 
-class AppCardMapper {
+class AppCardMapper @Inject constructor() {
 
-    fun toDomain(dto: AppCardDto): AppCardDomain = AppCardDomain(
+    fun toDomain(dto: AppCardDto): AppCard = AppCard(
         id =dto.id,
         iconUrl =dto.iconUrl,
         name =dto.name,
@@ -13,7 +14,7 @@ class AppCardMapper {
         categoryApp =dto.categoryApp,
     )
 
-    fun toDTO(domain: AppCardDomain): AppCardDto = AppCardDto(
+    fun toDTO(domain: AppCard): AppCardDto = AppCardDto(
         id =domain.id,
         iconUrl =domain.iconUrl,
         name =domain.name,
