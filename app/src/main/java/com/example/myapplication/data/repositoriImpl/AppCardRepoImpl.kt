@@ -1,30 +1,28 @@
 package com.example.myapplication.data.repositoriImpl
 
 import com.example.myapplication.data.dto.AppCardDto
-import com.example.myapplication.data.local.AppDetailsDao
+import com.example.myapplication.data.local.AppCardApi
 import com.example.myapplication.data.mapper.AppCardMapper
-import com.example.myapplication.domain.domainModel.AppCard
 import com.example.myapplication.domain.repository.AppCardRepo
+import com.example.myapplication.domain.domainModel.AppCard
 import javax.inject.Inject
-import kotlin.collections.map
 
 class AppCardRepoImpl @Inject constructor(
-    private val appDetailsDao: AppDetailsDao,
+    private val appCardApi: AppCardApi,
     private val appCardMapper: AppCardMapper
-): AppCardRepo{
+): AppCardRepo {
 
-    override fun getAllCardsApp(): List<AppCard> {
-        val curAppCardDtoLists: List<AppCardDto> = appDetailsDao.getAllCardsApp()
+    override suspend fun getAllCardsApp(): List<AppCard> {
+        val curAppCardDtoLists: List<AppCardDto> = appCardApi.getCatalog()
         val appCardLists: List<AppCard> = curAppCardDtoLists.map{
                 dto -> appCardMapper.toDomain(dto)
         }
         return appCardLists
     }
 
-    override fun findById(id: String): AppCard {
-        val curAppCardDto: AppCardDto = appDetailsDao.findById(id)
+    override suspend fun findById(id: String): AppCard {
+        val curAppCardDto: AppCardDto = appCardApi.getAppCard(id)
         val appCard: AppCard = appCardMapper.toDomain(curAppCardDto)
         return appCard
     }
-
 }

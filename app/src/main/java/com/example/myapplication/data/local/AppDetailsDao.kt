@@ -1,11 +1,11 @@
 package com.example.myapplication.data.local
 
-import com.example.myapplication.data.dto.AppCardDto
+import com.example.myapplication.data.dto.SimilarAppCardDto
 
 interface AppDetailsDao {
 
-    fun getAllCardsApp(): List<AppCardDto>
+    fun getAllCardsApp(): List<SimilarAppCardDto>
 
-    fun findById(id: String): AppCardDto
+    fun findById(id: String): SimilarAppCardDto
 
 }

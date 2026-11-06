@@ -1,12 +1,15 @@
 package com.example.myapplication.presentation.ui
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -56,25 +59,39 @@ fun AppItemCardScreen(
                     val appCardDomain = state.appDetails
                     val storefront = state.storefrontApps
 
-                    AsyncImage(
-                        model = appCardDomain.iconUrl,
-                        contentDescription = null,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .aspectRatio(16f / 9f) // Соотношение сторон сохранится
-                            .clip(RoundedCornerShape(8.dp))
-                    )
-                    Spacer(Modifier.height(16.dp))
-                    Text(text = appCardDomain.name)
-                    Text(text = appCardDomain.description)
-                    Text(text = appCardDomain.categoryApp.name)
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(16.dp),
+                        verticalArrangement = Arrangement.spacedBy(16.dp)
+                    ) {
+                        item {
+                            AsyncImage(
+                                model = appCardDomain.iconUrl,
+                                contentDescription = null,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .aspectRatio(16f / 9f) // Соотношение сторон сохранится
+                                    .clip(RoundedCornerShape(8.dp))
+                            )
+                        }
 
-                    Spacer(modifier = Modifier.height(24.dp))
+                        item {
+                            Column {
+                                Text(text = appCardDomain.name)
+                                Text(text = appCardDomain.description)
+                                Text(text = appCardDomain.categoryApp)
+                            }
+                        }
 
-                    Showcase(
-                        appsListForStore = storefront,
-                        onClickTheCard = onClickTheCard
-                    )
+                        item {
+                            Column {
+                                Showcase(
+                                    appsListForStore = storefront,
+                                    onClickTheCard = onClickTheCard
+                                )
+                            }
+                        }
+                    }
                 }
 
             }

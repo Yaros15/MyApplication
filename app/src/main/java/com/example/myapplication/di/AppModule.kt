@@ -1,25 +1,41 @@
 package com.example.myapplication.di
 
-import com.example.myapplication.data.local.AppCardDatabase
-import com.example.myapplication.data.local.AppDetailsDao
+import com.example.myapplication.data.local.AppCardApi
 import com.example.myapplication.data.repositoriImpl.AppCardRepoImpl
 import com.example.myapplication.domain.repository.AppCardRepo
-import dagger.Binds
+import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import dagger.Module
+import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import kotlinx.serialization.json.Json
+import okhttp3.MediaType.Companion.toMediaType
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class AppModule {
+object AppModule {
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindAppCardRepo(appCardRepoImpl: AppCardRepoImpl): AppCardRepo
+    fun provideRetrofit(): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl("http://185.103.109.134")
+            .addConverterFactory(Json.asConverterFactory("application/json".toMediaType()))
+            .build()
+    }
 
-    @Binds
+    @Provides
     @Singleton
-    abstract fun bindAppDetailsDao(appCardDatabase: AppCardDatabase): AppDetailsDao
+    fun provideAppCardApi(retrofit: Retrofit): AppCardApi {
+        return retrofit.create(AppCardApi::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAppCardRepo(appCardRepoImpl: AppCardRepoImpl): AppCardRepo{
+        return appCardRepoImpl
+    }
 
 }

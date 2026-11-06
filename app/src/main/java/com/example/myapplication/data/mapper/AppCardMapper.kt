@@ -1,7 +1,7 @@
 package com.example.myapplication.data.mapper
 
-import com.example.myapplication.domain.domainModel.AppCard
 import com.example.myapplication.data.dto.AppCardDto
+import com.example.myapplication.domain.domainModel.AppCard
 import javax.inject.Inject
 
 class AppCardMapper @Inject constructor() {
@@ -21,5 +21,4 @@ class AppCardMapper @Inject constructor() {
         description =domain.description,
         categoryApp =domain.categoryApp,
     )
-
 }

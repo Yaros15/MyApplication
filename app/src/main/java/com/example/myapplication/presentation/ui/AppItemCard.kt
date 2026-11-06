@@ -15,8 +15,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
-import com.example.myapplication.domain.domainModel.AppCard
 import com.example.myapplication.data.dto.CategoryApp
+import com.example.myapplication.domain.domainModel.AppCard
 import com.example.myapplication.ui.theme.MyApplicationTheme
 
 @Composable
@@ -43,7 +43,7 @@ fun AppItemCard (
             style = MaterialTheme.typography.titleSmall)
         Text(text = appCard.description,
             style = MaterialTheme.typography.bodySmall)
-        Text(text = appCard.categoryApp.name,
+        Text(text = appCard.categoryApp,
             style = MaterialTheme.typography.labelSmall)
     }
 }
@@ -52,7 +52,7 @@ fun AppItemCard (
 @Composable
 fun AppItemCardPreview(){
     MyApplicationTheme {
-        AppItemCard(AppCard("1", "https://static.rustore.ru/imgproxy/g5whSI1uNqaL2TUO7TFfM8M63vXpWXNCm2vlX4Ahvc4/preset:web_scr_lnd_335/plain/https://static.rustore.ru/apk/393868735/content/SCREENSHOT/c2dde8bc-c4ab-482a-80a5-2789149f598d.jpg@webp","Герои меча и магии","Стратегическая игра", CategoryApp.GAME),
+        AppItemCard(AppCard("1", "https://static.rustore.ru/imgproxy/g5whSI1uNqaL2TUO7TFfM8M63vXpWXNCm2vlX4Ahvc4/preset:web_scr_lnd_335/plain/https://static.rustore.ru/apk/393868735/content/SCREENSHOT/c2dde8bc-c4ab-482a-80a5-2789149f598d.jpg@webp","Герои меча и магии","Стратегическая игра", "GAME."),
             onClickTheCard = {})
     }
 }
