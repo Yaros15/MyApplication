@@ -1,5 +1,6 @@
 package com.example.myapplication.presentation.viewModel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.domain.repository.AppCardRepo

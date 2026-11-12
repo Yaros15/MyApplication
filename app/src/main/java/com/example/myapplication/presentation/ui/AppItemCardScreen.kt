@@ -58,6 +58,9 @@ fun AppItemCardScreen(
 
                     val appCardDomain = state.appDetails
                     val storefront = state.storefrontApps
+                    val installState = state.installState
+                    val onInstallClick = { viewModel.onInstallClick() }
+                    val onClickTheCard = onClickTheCard
 
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
@@ -72,6 +75,13 @@ fun AppItemCardScreen(
                                     .fillMaxWidth()
                                     .aspectRatio(16f / 9f) // Соотношение сторон сохранится
                                     .clip(RoundedCornerShape(8.dp))
+                            )
+                        }
+
+                        item{
+                            InstallButton(
+                                installState = installState,
+                                onInstallClick = onInstallClick
                             )
                         }
 

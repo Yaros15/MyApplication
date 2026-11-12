@@ -1,5 +1,6 @@
 package com.example.myapplication.data.repositoriImpl
 
+import android.util.Log
 import com.example.myapplication.data.dto.AppCardDto
 import com.example.myapplication.data.local.AppCardApi
 import com.example.myapplication.data.mapper.AppCardMapper
