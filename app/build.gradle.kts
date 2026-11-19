@@ -66,4 +66,7 @@ dependencies {
     implementation(libs.retrofit.converter.kotlinx.serialization)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.okhttp)
+
+    testImplementation(libs.mockk)
+    testImplementation(libs.coroutines.test)
 }
